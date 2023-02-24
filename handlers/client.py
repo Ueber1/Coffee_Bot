@@ -8,9 +8,9 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
 #from create_bot import id_consumer
 '''КЛИЕНТСКАЯ ЧАСТЬ'''
-photo1 = InputFile("Photos/1.jpg")
-photo2 = InputFile("Photos/2.PNG")
-photo3 = InputFile("Photos/3.jpg")
+
+
+
 Order = ''
 id_valera = 562051066
 
@@ -47,6 +47,8 @@ async def send_order(message,state: FSMContext):
 async def pizza_menu_command(message):
     global Order
     Order = ""
+    photo1 = InputFile("Photos/1.jpg")
+    photo2 = InputFile("Photos/2.PNG")
     await bot.send_photo(message.from_user.id, photo=photo1)
     await bot.send_photo(message.from_user.id, photo=photo2)
     await bot.send_message(message.from_user.id, "Напишите сюда, что из пункта меню вы выбрали")
@@ -62,6 +64,7 @@ async def supplements(message):
 async def bakery(message):
     global Order
     Order += message.text
+    photo3 = InputFile("Photos/3.jpg")
     await bot.send_photo(message.from_user.id, photo=photo3)
     await FSMClient.final.set()
     await bot.send_message(message.from_user.id, "Напишите сюда, что из выпечки вы выбрали")
