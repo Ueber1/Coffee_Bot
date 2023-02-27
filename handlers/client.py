@@ -36,7 +36,16 @@ async def i_know(message: types.Message):
 async def send_order(message,state: FSMContext):
     #await sqlite_db.sql_read(message)
     global Order
-    global id_consumer
+    create_bot.id_consumer = message.from_user.id
+    Order += message.text
+    await bot.send_message(message.from_user.id, "Мы отправили ваш заказ")
+    await bot.send_message(id_valera, Order)
+    await state.finish()
+
+async def send_order_i_know(message,state: FSMContext):
+    #await sqlite_db.sql_read(message)
+    global Order
+    Order = ''
     create_bot.id_consumer = message.from_user.id
     Order += message.text
     await bot.send_message(message.from_user.id, "Мы отправили ваш заказ")
@@ -77,4 +86,4 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(supplements, state=FSMClient.supplements)
     dp.register_message_handler(bakery, state=FSMClient.bakery)
     dp.register_message_handler(send_order, state=FSMClient.final)
-    dp.register_message_handler(send_order, state=FSMIKnow.iknow)
+    dp.register_message_handler(send_order_i_know, state=FSMIKnow.iknow)
