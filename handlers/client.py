@@ -40,7 +40,10 @@ async def send_order(message,state: FSMContext):
     Order += message.text
     await bot.send_message(message.from_user.id, "Ваш заказ отправлен, пожалуйста, дождитесь ответа баристы")
     for x in ides.values():
-        await bot.send_message(x, Order)
+        try:
+            await bot.send_message(x, Order)
+        except:
+            print("Бот не смог написать баристе")
     await state.finish()
 
 async def send_order_i_know(message,state: FSMContext):
@@ -51,7 +54,10 @@ async def send_order_i_know(message,state: FSMContext):
     Order += message.text
     await bot.send_message(message.from_user.id, "Ваш заказ отправлен, пожалуйста, дождитесь ответа баристы")
     for x in ides.values():
-        await bot.send_message(x, Order)
+        try:
+            await bot.send_message(x, Order)
+        except:
+            print("Бот не смог написать баристе")
     await state.finish()
 
 
