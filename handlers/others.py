@@ -5,16 +5,16 @@ from aiogram import types, Dispatcher
 from create_bot import dp, bot, id_consumer
 import create_bot
 
-
-id_valera = 562051066
+ides = {'id_valera': 562051066, 'id_lera': 1164486775, 'id_anfisa': 755065667, 'id_nikita': 634495823, 'id_vanya': 1121483319}
 '''Common part'''
 #@dp.message_handler()
 async def echo_send(message: types.Message):
-    if message.from_user.id == id_valera:
-        try:
-            await bot.send_message(create_bot.id_consumer, "Ответ баристы: "+message.text)
-        except:
-            print("valera пишет тому, кому нельзя")
+    for id in ides.values():
+        if message.from_user.id == id:
+            try:
+                await bot.send_message(create_bot.id_consumer, "Ответ баристы: "+message.text)
+            except:
+                print("valera пишет тому, кому нельзя")
 
 
 

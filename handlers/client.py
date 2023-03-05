@@ -12,7 +12,7 @@ from aiogram.dispatcher import FSMContext
 
 
 Order = ''
-id_valera = 562051066
+ides = {'id_valera': 562051066, 'id_lera': 1164486775, 'id_anfisa': 755065667, 'id_nikita': 634495823, 'id_vanya': 1121483319}
 
 
 
@@ -38,8 +38,9 @@ async def send_order(message,state: FSMContext):
     global Order
     create_bot.id_consumer = message.from_user.id
     Order += message.text
-    await bot.send_message(message.from_user.id, "Мы отправили ваш заказ")
-    await bot.send_message(id_valera, Order)
+    await bot.send_message(message.from_user.id, "Ваш заказ отправлен, пожалуйста, дождитесь ответа баристы")
+    for x in ides.values():
+        await bot.send_message(x, Order)
     await state.finish()
 
 async def send_order_i_know(message,state: FSMContext):
@@ -48,8 +49,9 @@ async def send_order_i_know(message,state: FSMContext):
     Order = ''
     create_bot.id_consumer = message.from_user.id
     Order += message.text
-    await bot.send_message(message.from_user.id, "Мы отправили ваш заказ")
-    await bot.send_message(id_valera, Order)
+    await bot.send_message(message.from_user.id, "Ваш заказ отправлен, пожалуйста, дождитесь ответа баристы")
+    for x in ides.values():
+        await bot.send_message(x, Order)
     await state.finish()
 
 
