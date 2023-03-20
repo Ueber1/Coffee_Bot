@@ -6,14 +6,13 @@ from data_base import sqlite_db
 from aiogram.types.input_file import  InputFile
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
+from data_base.sqlite_db import sql_get_list
 #from create_bot import id_consumer
 '''КЛИЕНТСКАЯ ЧАСТЬ'''
 
 
 
 Order = ''
-ides = {'id_valera': 562051066, 'id_lera': 1164486775, 'id_anfisa': 755065667, 'id_nikita': 634495823, 'id_vanya': 1121483319}
-
 
 
 class FSMClient(StatesGroup):
@@ -39,7 +38,9 @@ async def send_order(message,state: FSMContext):
     create_bot.id_consumer = message.from_user.id
     Order += message.text
     await bot.send_message(message.from_user.id, "Ваш заказ отправлен, пожалуйста, дождитесь ответа баристы")
-    for x in ides.values():
+    _list = list()
+    await sql_get_list(_list)
+    for x in _list:
         try:
             await bot.send_message(x, Order)
         except:
@@ -53,7 +54,9 @@ async def send_order_i_know(message,state: FSMContext):
     create_bot.id_consumer = message.from_user.id
     Order += message.text
     await bot.send_message(message.from_user.id, "Ваш заказ отправлен, пожалуйста, дождитесь ответа баристы")
-    for x in ides.values():
+    _list = list()
+    await sql_get_list(_list)
+    for x in _list:
         try:
             await bot.send_message(x, Order)
         except:
@@ -89,8 +92,8 @@ async def bakery(message):
 
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_start, commands=['start', 'help'])
-    dp.register_message_handler(pizza_menu_command, commands='Меню')
-    dp.register_message_handler(i_know, commands='Знаю')
+    dp.register_message_handler(pizza_menu_command, text ='Меню')
+    dp.register_message_handler(i_know, text ='Знаю')
     dp.register_message_handler(supplements, state=FSMClient.supplements)
     dp.register_message_handler(bakery, state=FSMClient.bakery)
     dp.register_message_handler(send_order, state=FSMClient.final)

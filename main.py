@@ -10,8 +10,9 @@ async def on_startup(_):
     sqlite_db.sql_start()
 
 client.register_handlers_client(dp)
-others.register_handlers_other(dp)
 admin.register_handlers_admin(dp)
+others.register_handlers_other(dp)
+
 
 
 
