@@ -14,7 +14,7 @@ async def echo_send(message: types.Message):
     _list = list()
     await sql_get_list(_list)
     for id in _list:
-        if message.from_user.id == id:
+        if message.from_user.id == int(id):
             flag = False
             try:
                 await bot.send_message(create_bot.id_consumer, "Ответ баристы: "+message.text)
@@ -22,7 +22,6 @@ async def echo_send(message: types.Message):
                 print("valera пишет тому, кому нельзя")
     if(flag):
         await bot.send_message(message.from_user.id, "Пожалуйста, нажмити одну из двух кнопок, чтобы сделать заказ.")
-
 
 
 """async def echo_send(message: types.Message):

@@ -52,7 +52,7 @@ async def send_order_i_know(message,state: FSMContext):
     global Order
     Order = ''
     create_bot.id_consumer = message.from_user.id
-    Order += message.text
+    Order += message.text+ ' '
     await bot.send_message(message.from_user.id, "Ваш заказ отправлен, пожалуйста, дождитесь ответа баристы")
     _list = list()
     await sql_get_list(_list)
@@ -76,14 +76,14 @@ async def pizza_menu_command(message):
 
 async def supplements(message):
     global Order
-    Order += message.text
+    Order += message.text + ' '
     await FSMClient.bakery.set()
     await bot.send_message(message.from_user.id, "Напишите сюда, что из добавок вы выбрали")
 
 
 async def bakery(message):
     global Order
-    Order += message.text
+    Order += message.text + ' '
     photo3 = InputFile("Photos/3.jpg")
     await bot.send_photo(message.from_user.id, photo=photo3)
     await FSMClient.final.set()
